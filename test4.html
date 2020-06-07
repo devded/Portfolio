@@ -16,7 +16,6 @@
     </div>
 </body>
 </html>
-
 <script>
     var test = [];
     fetch('https://cors-anywhere.herokuapp.com/http://covid19tracker.gov.bd/api/district')
@@ -76,18 +75,27 @@
             plotOptions: {
                 bar: {
                     barHeight: '100%',
-                distributed: true,
-                horizontal: true,
-                dataLabels: {
-                  position: 'bottom'
+                    distributed: true,
+                    horizontal: true,
+                    dataLabels: {
+                        position: 'bottom'
+                    }
                 }
-                }
+            },
+            title: {
+                text: "District Wise Confirmed Cases",
+                align: "center",
+                floating: true
+            },
+            subtitle: {
+                text: "Data Source covid19tracker.gov.bd API",
+                align: "center"
             },
             dataLabels: {
                 enabled: true,
                 style: {
-                colors: ['#050101']
-              }
+                    colors: ['#050101']
+                }
             },
             xaxis: {
                 categories: district,
