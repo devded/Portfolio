@@ -4,6 +4,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bangladesh Covid-19 Confirmed Case</title>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        #chart{
+            color: black;
+        }
+    </style>
 </head>
 <body>
     <div id="chart">
@@ -65,15 +70,24 @@
             }],
             chart: {
                 type: 'bar',
-                height: 1400
+                height: 1400,
+                color: '#373d3f'
             },
             plotOptions: {
                 bar: {
-                    horizontal: true,
+                    barHeight: '100%',
+                distributed: true,
+                horizontal: true,
+                dataLabels: {
+                  position: 'bottom'
+                }
                 }
             },
             dataLabels: {
-                enabled: true
+                enabled: true,
+                style: {
+                colors: ['#050101']
+              }
             },
             xaxis: {
                 categories: district,
