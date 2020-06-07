@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bangladesh Covid-19 Confirmed Case</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body>
+    <div id="chart">
+
+    </div>
+</body>
+</html>
+
+<script>
+    var test = [];
+    fetch('http://covid19tracker.gov.bd/api/district')
+        .then(
+            function (response) {
+                if (response.status !== 200) {
+                    console.log('Looks like there was a problem. Status Code: ' +
+                        response.status);
+                    return;
+                }
+
+                // Examine the text in the response
+                response.json().then(function (data) {
+                    //console.log(data.features[0].properties.name);
+                    //console.log(data.features[0].properties.confirmed);
+
+                    for (var i = 0; i < 64; i++) {
+                        test.push([data.features[i].properties.name, data.features[i].properties.confirmed]);
+                    }
+
+                    var test2 = test.sort(function (a, b) {
+                        return a[1] - b[1]
+                    });
+
+                    test2.reverse();
+
+                    var district = []
+                    var confirmed = []
+
+                    for (var i = 0; i < 64; i++) {
+                        district.push(test2[i][0]);
+                        confirmed.push(test2[i][1])
+                    }
+
+                    console.table(district);
+                    chart(district, confirmed);
+                });
+            }
+        )
+        .catch(function (err) {
+            console.log('Fetch Error :-S', err);
+        });
+
+
+
+
+    function chart(district, confirmed) {
+        var options = {
+            series: [{
+                data: confirmed
+            }],
+            chart: {
+                type: 'bar',
+                height: 1400
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                }
+            },
+            dataLabels: {
+                enabled: true
+            },
+            xaxis: {
+                categories: district,
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    }
+</script>
