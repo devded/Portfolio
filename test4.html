@@ -14,7 +14,7 @@
 
 <script>
     var test = [];
-    fetch('http://covid19tracker.gov.bd/api/district')
+    fetch('https://cors-anywhere.herokuapp.com/http://covid19tracker.gov.bd/api/district')
         .then(
             function (response) {
                 if (response.status !== 200) {
