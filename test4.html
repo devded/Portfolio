@@ -4,11 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bangladesh Covid-19 Confirmed Case</title>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <style>
-        #chart{
-            color: black;
-        }
-    </style>
+    
 </head>
 <body>
     <div id="chart">
@@ -22,8 +18,7 @@
         .then(
             function (response) {
                 if (response.status !== 200) {
-                    console.log('Looks like there was a problem. Status Code: ' +
-                        response.status);
+                    console.log('Looks like there was a problem. Status Code: ' + response.status);
                     return;
                 }
 
@@ -50,7 +45,6 @@
                         confirmed.push(test2[i][1])
                     }
 
-                    console.table(district);
                     chart(district, confirmed);
                 });
             }
@@ -58,8 +52,6 @@
         .catch(function (err) {
             console.log('Fetch Error :-S', err);
         });
-
-
 
 
     function chart(district, confirmed) {
