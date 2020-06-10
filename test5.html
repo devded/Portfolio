@@ -1,0 +1,106 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body>
+    <div id="chart">
+
+    </div>
+</body>
+</html>
+
+
+<script>
+    var test = [];
+
+    fetch('http://covid19tracker.gov.bd/api/dhaka')
+  .then(
+    function(response) {
+      if (response.status !== 200) {
+        console.log('Looks like there was a problem. Status Code: ' +
+          response.status);
+        return;
+      }
+
+      // Examine the text in the response
+      response.json().then(function(data) {
+        console.log(data[0].name);
+        console.log(data[0].confirmed);
+        console.log(data.length);
+
+        for(var i=0; i< data.length; i++){
+            test.push([data[i].name,data[i].confirmed])
+        }
+        var test2 = test.sort(function (a, b) {
+                        return a[1] - b[1]
+                    });
+
+                    test2.reverse();
+
+                    var placeName = [];
+                    var confirmed = [];
+
+                    for (var i = 0; i < data.length; i++) {
+                        placeName.push(test2[i][0]);
+                        confirmed.push(test2[i][1])
+                    }
+
+                    chart(placeName, confirmed);
+        
+      });
+    }
+  )
+  .catch(function(err) {
+    console.log('Fetch Error :-S', err);
+  });
+
+
+
+  function chart(district, confirmed) {
+        var options = {
+            series: [{
+                data: confirmed
+            }],
+            chart: {
+                type: 'bar',
+                height: 4000,
+                color: '#373d3f'
+            },
+            plotOptions: {
+                bar: {
+                    barHeight: '100%',
+                    distributed: true,
+                    horizontal: true,
+                    dataLabels: {
+                        position: 'bottom'
+                    }
+                }
+            },
+            title: {
+                text: "Dhaka Place Wise Confirmed Cases",
+                align: "center",
+                floating: true
+            },
+            subtitle: {
+                text: "Data Source covid19tracker.gov.bd API",
+                align: "center"
+            },
+            dataLabels: {
+                enabled: true,
+                style: {
+                    colors: ['#050101']
+                }
+            },
+            xaxis: {
+                categories: district,
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    }
+
+</script>
