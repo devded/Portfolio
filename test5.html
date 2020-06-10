@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dhaka Covid-19 Confirmed Case</title>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body>
@@ -16,7 +16,7 @@
 <script>
     var test = [];
 
-    fetch('http://covid19tracker.gov.bd/api/dhaka')
+    fetch('https://cors-anywhere.herokuapp.com/http://covid19tracker.gov.bd/api/dhaka')
   .then(
     function(response) {
       if (response.status !== 200) {
